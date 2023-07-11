@@ -649,7 +649,11 @@ size_t Adafruit_TestBed_Brains::esp32_programFlash(const char *fpath,
 //--------------------------------------------------------------------+
 
 bool Adafruit_TestBed_Brains::SD_detected(void) {
+#ifdef SD_CS_INVERT
+  return !digitalRead(_sd_detect_pin);
+#else
   return digitalRead(_sd_detect_pin);
+#endif
 }
 
 bool Adafruit_TestBed_Brains::SD_begin(uint32_t max_clock) {
